@@ -9,13 +9,14 @@ use App\Models\Book; //Add
 
 
 // Route::get('/', [BookController::class, 'index'])->middleware(['auth'])->name('book_index');
-Route::get('/', [BookController::class, 'index'])->name('book_index');
-
-
-Route::get('/dashboard', [BookController::class, 'index'])->name('dashboard');
 Route::group(
     ['middleware' => 'auth'],
     function () {
+        Route::get('/', [BookController::class, 'index'])->name('book_index');
+
+
+        Route::get('/dashboard', [BookController::class, 'index'])->name('dashboard');
+
         //本：追加 
         Route::post('/books', [BookController::class, "store"])->name('book_store');
 
