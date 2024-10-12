@@ -66,9 +66,11 @@
             @foreach ($books as $book)
                 <x-collection id="{{ $book->id }}">
                     {{ $book->item_name }}
+                    <span class="book-open cursor-pointer"><i class="fa-solid fa-plus"></i></span>
+                    <span class="book-close hidden cursor-pointer"><i class="fa-solid fa-minus"></i></span>
                         <div class="hidden book-detail">
                         {{ $book->item_detail}}
-                        <button class="close-btn bg-red-500 text-white px-2 py-1 rounded mt-2">閉じる</button>
+                        
                     </div>
                 </x-collection>
 

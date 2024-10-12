@@ -32,6 +32,7 @@
                 {{ $slot }}
             </main>
         </div>
+        <script src="https://kit.fontawesome.com/8d6b14efb8.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script>
 
@@ -40,18 +41,19 @@
             });
 
         // 各 book-item をクリックしたときに、その詳細を表示
-        $(".book-item").click(function () {
-            // 他の book-detail をすべて非表示にする
-            // $(".book-detail").hide();
+        $(".book-open").click(function () {
 
             // クリックされた book-item 内の詳細を表示する
-            $(this).find(".book-detail").show();
+            $(this).siblings(".book-detail").show();
+            $(this).siblings(".book-close").show();
+            $(this).hide();
         });
 
         // 閉じるボタンをクリックしたら詳細を非表示
-        $(document).on("click", ".close-btn", function (e) {
-            e.stopPropagation();  // 親のクリックイベントを無効化
-            $(this).closest(".book-detail").hide();
+        $(document).on("click", ".book-close", function (e) {
+            $(this).siblings(".book-detail").hide();
+            $(this).siblings(".book-open").show();  // 開くボタンを表示
+            $(this).hide(); 
         });
         </script>
     </body>
