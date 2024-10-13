@@ -1,8 +1,9 @@
 <x-app-layout>
 
     <!--ヘッダー[START]-->
-    {{-- <x-slot name="header">
-    </x-slot> --}}
+    <x-slot name="header">
+        <h2 class="block sm:hidden">自分の単語</h2>
+    </x-slot>
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
