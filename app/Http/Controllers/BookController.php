@@ -14,6 +14,17 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function all(Book $book)
+    {
+        // 追加
+        $books = Book::orderBy('created_at', 'asc')->get();
+        return view('books', [
+            'books' => $books
+        ]);
+    }
+
+
+
     public function index()
     {
         $books = Book::where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->get();
@@ -66,10 +77,7 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
-    {
-        //
-    }
+    public function show(Book $book) {}
 
     /**
      * Show the form for editing the specified resource.

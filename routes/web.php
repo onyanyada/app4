@@ -8,7 +8,7 @@ use App\Models\Book; //Add
 
 
 
-// Route::get('/', [BookController::class, 'index'])->middleware(['auth'])->name('book_index');
+Route::get('/all', [BookController::class, 'all'])->name('all');
 
 
 
