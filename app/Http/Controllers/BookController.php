@@ -18,7 +18,7 @@ class BookController extends Controller
     {
         // 追加
         $books = Book::orderBy('created_at', 'asc')->get();
-        return view('books', [
+        return view('all', [
             'books' => $books
         ]);
     }
