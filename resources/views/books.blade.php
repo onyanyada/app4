@@ -1,14 +1,8 @@
 <x-app-layout>
 
     <!--ヘッダー[START]-->
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{-- <form action="{{ route('book_index') }}" method="GET" class="w-full max-w-lg">
-                <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}</x-button>
-            </form> --}}
-            <x-button class="bg-gray-100 write-btn">単語を登録</x-button>
-        </h2>
-    </x-slot>
+    {{-- <x-slot name="header">
+    </x-slot> --}}
     <!--ヘッダー[END]-->
             
         <!-- バリデーションエラーの表示に使用-->
@@ -20,12 +14,13 @@
     {{-- <div class="flex bg-gray-100"> --}}
 
         <!--左エリア[START]--> 
-        <div class="left-area hidden text-gray-700 text-left px-4 py-4 m-2">
+        <div class="left-area relative hidden text-gray-700 text-left px-4 py-4 m-2">
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-500 font-bold">
                     単語
                 </div>
+                <span class="write-close cursor-pointer absolute top-8 right-8"><i class="fa-solid fa-xmark"></i></span>
             </div>
 
 
@@ -78,8 +73,11 @@
         @endif
     </div>
     <!--右側エリア[[END]-->       
-
 </div>
+
  <!--全エリア[END]-->
+<button class="write-btn bg-gray-800 fixed bottom-4 right-4 rounded-full w-14 h-14">
+    <i class="fa-solid fa-plus text-white"></i>
+</button>
 
 </x-app-layout>
