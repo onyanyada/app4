@@ -55,7 +55,7 @@
     
     
     <!--右側エリア[START]-->
-    <div class="flex-1 text-gray-700 text-left px-4 py-2 m-2">
+    <div class="right-area flex-1 text-gray-700 text-left px-4 py-2 m-2">
          <!-- 現在の本 -->
         @if (count($books) > 0)
             @foreach ($books as $book)
@@ -67,8 +67,9 @@
                         {{ $book->item_detail}}
                         
                     </div>
+                    
                 </x-collection>
-
+                
             @endforeach
         @endif
     </div>

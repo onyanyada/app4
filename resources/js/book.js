@@ -1,14 +1,15 @@
 $(".write-btn").click(function () {
     $(".left-area").show();
+    $(".right-area").css('display', 'none');
 });
 
 $(".write-close").click(function () {
     $(".left-area").css('display', 'none');
+    $(".right-area").show();
 });
 
 // 各 book-item をクリックしたときに、その詳細を表示
 $(".book-open").click(function () {
-
     // クリックされた book-item 内の詳細を表示する
     $(this).siblings(".book-detail").show();
     $(this).siblings(".book-close").show();
