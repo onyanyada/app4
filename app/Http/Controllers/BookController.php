@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category; // Categoryモデルを追加
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator; // Validatorのインポート
@@ -27,9 +29,15 @@ class BookController extends Controller
 
     public function index()
     {
-        $books = Book::where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->get();
+        $books = Book::with('categories') // カテゴリも一緒に取得
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'asc')
+            ->get();
+        $categories = Category::all(); // 全てのカテゴリを取得
+
         return view('books', [
-            'books' => $books
+            'books' => $books,
+            'categories' => $categories
         ]);
     }
 
@@ -44,17 +52,13 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Book $book)
     {
-
-
-
-
-
         //バリデーション
         $validator = Validator::make($request->all(), [
             'item_name' => 'required|min:1|max:255',
             'item_detail' => 'required',
+            'categories' => 'required|array', // カテゴリの選択を検証
         ]);
 
         //バリデーション:エラー 
@@ -71,6 +75,10 @@ class BookController extends Controller
         $books->item_name   = $request->item_name;
         $books->item_detail = $request->item_detail;
         $books->save();
+
+        // 本にカテゴリを紐づける
+        $books->categories()->sync($request->categories);
+
         return redirect('/');
     }
 
@@ -84,8 +92,15 @@ class BookController extends Controller
      */
     public function edit($book_id)
     {
-        $books = Book::where('user_id', Auth::user()->id)->find($book_id);
-        return view('booksedit', ['book' => $books]);
+        // $books = Book::where('user_id', Auth::user()->id)->find($book_id);
+
+        $books = Book::with('categories') // カテゴリも一緒に取得
+            ->where('user_id', Auth::user()->id)
+            ->find($book_id);
+        $categories = Category::all();
+
+
+        return view('booksedit', ['book' => $books, 'categories' => $categories]);
     }
 
     /**
@@ -98,6 +113,7 @@ class BookController extends Controller
             'id' => 'required',
             'item_name' => 'required|min:3|max:255',
             'item_detail' => 'required',
+            'categories' => 'required|array',
         ]);
         //バリデーション:エラー
         if ($validator->fails()) {
@@ -111,6 +127,9 @@ class BookController extends Controller
         $books->item_name   = $request->item_name;
         $books->item_detail = $request->item_detail;
         $books->save();
+
+        // 本のカテゴリを更新
+        $books->categories()->sync($request->categories);
         return redirect('/');
     }
 

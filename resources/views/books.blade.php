@@ -43,6 +43,15 @@
                       </label>
                       <input name="item_detail" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
                     </div>
+                    <!-- カテゴリ選択 -->
+                    <div class="w-full md:w-1/1 px-3 mt-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">カテゴリ</label>
+                        <select name="categories[]" class="form-control" multiple>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                   </div>
                   <!-- カラム５ -->
                   <div class="flex flex-col">
@@ -66,7 +75,13 @@
                     <span class="book-close hidden cursor-pointer"><i class="fa-solid fa-minus"></i></span>
                         <div class="hidden book-detail">
                         {{ $book->item_detail}}
-                        
+                        <!-- 本に関連するカテゴリの表示 -->
+                        <p>カテゴリ:</p>
+                        <ul>
+                            @foreach ($book->categories as $category)
+                                <li>{{ $category->name }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                     
                 </x-collection>

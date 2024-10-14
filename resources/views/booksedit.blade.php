@@ -52,7 +52,15 @@
                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         カテゴリ
                       </label>
-                      <input name="item_detail" value="{{$category->name}}" class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="">
+                        <select name="categories[]" class="form-control" multiple>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ in_array($category->id, $book->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    
                     </div>
                   <!-- カラム５ -->
                   <div class="flex flex-col">
