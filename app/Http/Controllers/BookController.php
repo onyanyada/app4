@@ -16,12 +16,26 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function all(Book $book)
+    public function all(Book $book, Request $request)
     {
         // 追加
-        $books = Book::orderBy('created_at', 'asc')->get();
+        //$books = Book::orderBy('created_at', 'asc')->get();
+        $categories = Category::all(); // 全てのカテゴリを取得
+
+        // 選択されたカテゴリがある場合は、そのカテゴリに関連する本を取得
+        if ($request->has('categories')) {
+            $selectedCategories = $request->input('categories');
+            $books = Book::whereHas('categories', function ($query) use ($selectedCategories) {
+                $query->whereIn('categories.id', $selectedCategories);
+            })->get();
+        } else {
+            // カテゴリが選択されていない場合は、すべての本を取得
+            $books = Book::all();
+        }
+
         return view('all', [
-            'books' => $books
+            'books' => $books,
+            'categories' => $categories
         ]);
     }
 

@@ -28,6 +28,8 @@ Route::post('/categories/update', [CategoryController::class, "update"])->name('
 // 単語
 Route::get('/all', [BookController::class, 'all'])->name('all');
 
+
+
 Route::group(
     ['middleware' => 'auth'],
     function () {
