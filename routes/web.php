@@ -5,12 +5,28 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BookController; //Add
 use App\Models\Book; //Add
+use App\Http\Controllers\CategoryController; //Add
+use App\Models\Category; //Add
+
+// カテゴリ
+Route::get('/categories', [CategoryController::class, 'index'])->name('category_index');
+
+//本：追加 
+Route::post('/categories', [CategoryController::class, "store"])->name('category_store');
+
+//本：削除 
+Route::delete('/category/{category}', [CategoryController::class, "destroy"])->name('category_destroy');
+
+//本：更新画面
+Route::post('/categoriesedit/{category}', [CategoryController::class, "edit"])->name('category_edit'); //通常
+Route::get('/categoriesedit/{category}', [CategoryController::class, "edit"])->name('edit');      //Validationエラーありの場合
+
+//本：更新画面
+Route::post('/categories/update', [CategoryController::class, "update"])->name('category_update');
 
 
-
+// 単語
 Route::get('/all', [BookController::class, 'all'])->name('all');
-
-
 
 Route::group(
     ['middleware' => 'auth'],
